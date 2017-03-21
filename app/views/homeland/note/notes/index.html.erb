@@ -1,0 +1,44 @@
+<% title_tag t('plugin.note') %>
+<div class="row">
+  <div class="col-md-9">
+    <div id="notes" class="panel panel-default">
+      <div class="panel-heading">
+        <%= t('plugin.note') %>
+        <span class="total pull-right">
+        已有 <%= current_user_notes.count %> 条 Note
+        </span>
+      </div>
+
+      <div class="panel-body">
+        <% if @notes.blank? %>
+          <div style="text-align:center; padding:60px 0;">你还没有创建过一个文件。</div>
+        <% else %>
+          <% @notes.each do |note| %>
+            <div class="media">
+              <div class="media-body">
+                <div class="media-heading">
+                  <%= link_to note.display_title, note %>
+                  <% if note.publish %>
+                    <span class="label warning"><i class="fa fa-share-alt"></i> 公开</span>
+                  <% end %>
+                  <span class="opts pull-right">
+                    <a href="<%= edit_note_path(note.id) %>"><i class="fa fa-pencil"></i></a>
+                  </span>
+                </div>
+                <div class="info">
+                  <%= note.word_count %> 个字符, 创建于 <%= timeago(note.created_at) %>, <%= note.changes_count %> 次编辑
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer clearfix">
+        <%= paginate @notes %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "sidebar" %>
+</div>

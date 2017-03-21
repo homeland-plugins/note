@@ -1,0 +1,39 @@
+<% title_tag [@note.title, t('plugin.note')].join(' · ') %>
+
+<div class="row">
+  <div class="col-sm-9">
+    <div id="notes" class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <div class="info">
+          共 <%= @note.word_count %> 个字符
+          • <%= user_name_tag(@note.user) if !owner? @note %>
+          <%= l @note.created_at, format: :long %>
+          • <%= @note.hits %> 次阅读
+          • <%= @note.changes_count %> 次修改
+          <% if owner? @note %>
+          <span class="opts pull-right">
+            <%= link_to icon_tag("pencil"), edit_note_path(@note), title: "编辑" %>
+            <%= link_to icon_tag("trash"), note_path(@note), 'data-confirm' => "确定要删除么？", method: :delete %>
+          </span>
+          <% end %>
+        </div>
+        <% if @note.publish %>
+        <div class="links">
+          <label>页面链接</label>
+          <%= note_url(@note) %>
+        </div>
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <% if !@note.publish %>
+        <i class="fa fa-lock text-success pull-right" title="此内容保密"></i>
+        <% end %>
+        <div class="markdown">
+          <%= markdown(@note.body) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render "sidebar" %>
+</div>
