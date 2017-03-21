@@ -29,7 +29,7 @@ module Homeland::Note
       @note.user_id = current_user.id
       @note.publish = note_params[:publish] == '1'
       if @note.save
-        redirect_to(@note, notice: t('common.create_success'))
+        redirect_to(@note, notice: "创建成功。")
       else
         render action: 'new'
       end
@@ -39,7 +39,7 @@ module Homeland::Note
       @note = current_user_notes.find(params[:id])
       authorize! :update, @note
       if @note.update(note_params)
-        redirect_to(@note, notice: t('common.update_success'))
+        redirect_to(@note, notice: "更新成功。")
       else
         render action: 'edit'
       end

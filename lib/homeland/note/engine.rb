@@ -4,7 +4,7 @@ module Homeland
       isolate_namespace Homeland::Note
 
       initializer 'homeland.note.init' do |app|
-        return unless Setting.has_module?(:note)
+        next unless Setting.has_module?(:note)
         Homeland.register_plugin do |plugin|
           plugin.name = 'note'
           plugin.display_name = '记事本'
