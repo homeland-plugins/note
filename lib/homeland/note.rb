@@ -1,3 +1,4 @@
+require "homeland/note/version"
 require "homeland/note/engine"
 
 module Homeland
