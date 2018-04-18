@@ -1,3 +1,9 @@
+0.2.0
+-------
+
+- Remove simple_form, use Rails form builder.
+- Upgrade for Bootstrap V4.
+
 0.1.3
 -----
 

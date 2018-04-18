@@ -1,15 +1,15 @@
 <% title_tag t('plugin.note') %>
 <div class="row">
   <div class="col-md-9">
-    <div id="notes" class="panel panel-default">
-      <div class="panel-heading">
+    <div id="notes" class="card">
+      <div class="card-header">
         <%= t('plugin.note') %>
         <span class="total pull-right">
         已有 <%= current_user_notes.count %> 条 Note
         </span>
       </div>
 
-      <div class="panel-body">
+      <div class="card-body">
         <% if @notes.blank? %>
           <div style="text-align:center; padding:60px 0;">你还没有创建过一个文件。</div>
         <% else %>
@@ -19,7 +19,7 @@
                 <div class="media-heading">
                   <%= link_to note.display_title, note %>
                   <% if note.publish %>
-                    <span class="label warning"><i class="fa fa-share-alt"></i> 公开</span>
+                    <span class="label label-text-warning"><i class="fa fa-share-alt"></i> 公开</span>
                   <% end %>
                   <span class="opts pull-right">
                     <a href="<%= edit_note_path(note.id) %>"><i class="fa fa-pencil"></i></a>
@@ -34,7 +34,7 @@
         <% end %>
       </div>
 
-      <div class="panel-footer clearfix">
+      <div class="card-footer clearfix">
         <%= paginate @notes %>
       </div>
     </div>

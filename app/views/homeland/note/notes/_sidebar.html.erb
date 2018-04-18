@@ -1,18 +1,18 @@
 <div class="sidebar col-md-3">
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-body">
       <p><a href="<%= new_note_path %>" class="btn btn-success btn-block">新建 Note</a></p>
       <div>
         记事本用于保存个人私密的记事信息，除非你选择公开，否则其他人无法访问。
       </div>
     </div>
-    <div class="panel-footer"><a href="<%= notes_path %>">查看我的 <%= current_user_notes.count %> 条 Note...</a></div>
+    <div class="card-footer"><a href="<%= notes_path %>">查看我的 <%= current_user_notes.count %> 条 Note...</a></div>
   </div>
 
   <% if @recent_notes.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">我最近创建的 Note</div>
-    <ul class="list-group">
+  <div class="card">
+    <div class="card-header">我最近创建的 Note</div>
+    <ul class="list-group list-group-flush">
       <% @recent_notes.each do |note| %>
         <li class="list-group-item">
           <%= link_to note.display_title, note %>
