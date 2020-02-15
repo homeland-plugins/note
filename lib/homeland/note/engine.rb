@@ -4,26 +4,21 @@ module Homeland::Note
   class Engine < ::Rails::Engine
     isolate_namespace Homeland::Note
 
-    initializer 'homeland.note.assets.precompile', group: :all do |app|
-      app.config.assets.precompile += %w[homeland/note/application.css homeland/note/application.js]
+    initializer 'homeland.site.migrate' do |_app|
+      migrate_paths = [File.expand_path('../../../migrate', __dir__)]
+
+      # Execute Migrations on engine load.
+      ActiveRecord::Migrator.migrations_paths += migrate_paths
+      begin
+        ActiveRecord::Tasks::DatabaseTasks.migrate
+      rescue ActiveRecord::NoDatabaseError
+      end
     end
 
     initializer 'homeland.note.init' do |app|
-      next unless Setting.has_module?(:note)
-
-      Homeland.register_plugin do |plugin|
-        plugin.name = Homeland::Note::NAME
-        plugin.display_name = '记事本'
-        plugin.version = Homeland::Note::VERSION
-        plugin.description = Homeland::Note::DESCRIPTION
-        plugin.user_menu_link = true
-        plugin.root_path = '/notes'
-      end
-
       app.routes.prepend do
         mount Homeland::Note::Engine => '/'
       end
-      app.config.paths['db/migrate'].concat(config.paths['db/migrate'].expanded)
     end
   end
 end

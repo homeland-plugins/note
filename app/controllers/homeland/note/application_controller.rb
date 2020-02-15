@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 module Homeland::Note
   class ApplicationController < ::ApplicationController
     protect_from_forgery with: :exception
-    layout "homeland/note/application"
-
-    helper Homeland::Note::ApplicationHelper
+    layout 'homeland/note/application'
 
     helper_method :current_user_notes
 

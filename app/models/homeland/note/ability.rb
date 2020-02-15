@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Homeland::Note
   class Ability
     include CanCan::Ability
@@ -8,10 +10,8 @@ module Homeland::Note
       @user = u
       if @user.blank?
         roles_for_anonymous
-      elsif @user.roles?(:member)
-        roles_for_members
       else
-        roles_for_anonymous
+        roles_for_members
       end
     end
 
@@ -20,14 +20,8 @@ module Homeland::Note
     # 普通会员权限
     def roles_for_members
       can :create, Note
-      can [:update, :destroy, :read], Note, user_id: user.id
+      can %i[update destroy read], Note, user_id: user.id
       can :read, Note, publish: true
-      basic_read_only
-    end
-
-    # 未登录用户权限
-    def roles_for_anonymous
-      cannot :manage, Note
       basic_read_only
     end
 

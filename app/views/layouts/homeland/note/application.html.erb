@@ -1,15 +1,78 @@
 <% content_for :stylesheets do %>
-  <%= stylesheet_link_tag    "homeland/note/application", media: "all" %>
+  <style type="text/css">
+    #notes .info {
+    	 color: #666;
+    }
+     #notes .media {
+    	 border-bottom: 1px solid #f0f0f0;
+    	 padding: 15px 0;
+    }
+     #notes .media:last-child {
+    	 padding-bottom: 0px;
+    	 border-bottom: 0px;
+    }
+     #notes .media .media-heading a {
+    	 font-size: 16px;
+    }
+     #notes .media .info {
+    	 color: #999;
+    	 font-size: 14px;
+    }
+     #notes .markdown {
+    	 min-height: 493px;
+    }
+     #notes .markdown h2:first-child {
+    	 text-align: center;
+    }
+  </style>
 <% end %>
-
 <% content_for :javascripts do %>
-  <%= javascript_include_tag "homeland/note/application" %>
+  <script type="text/javascript">
+    window.NoteView = Backbone.View.extend({
+        el: "body",
+        events: {
+          "click .editor-toolbar a.preview": "togglePreviewView"
+        },
+        initialize: function(opts) {
+          $("<div id='preview' class='markdown form-control' style='display:none;'></div>").insertAfter($('#note_body'));
+          return window._editor = new Editor();
+        },
+        togglePreviewView: function(e) {
+          var btn, note_body, preview_box;
+          btn = $(e.target);
+          preview_box = $('#preview');
+          note_body = $('#note_body');
+          if (btn.hasClass('active')) {
+            preview_box.hide();
+            note_body.show();
+            btn.removeClass('active');
+          } else {
+            btn.addClass('active');
+            note_body.hide();
+            preview_box.html('Loading...');
+            preview_box.css("height", note_body.height());
+            preview_box.show();
+            $.post('/notes/preview', {
+              body: note_body.val()
+            }, function(data) {
+              return preview_box.html(data);
+            });
+          }
+          return false;
+        }
+      });
+    
+      document.addEventListener('turbolinks:load', function() {
+        var _ref;
+        if ((_ref = $('body').data('controller-name')) === 'notes') {
+          return window._noteView = new NoteView();
+        }
+      });
+  </script>
 <% end %>
-
 <% content_for :main do %>
   <div id="homeland-note">
     <%= yield %>
   </div>
 <% end %>
-
 <%= render template: "/layouts/application" %>
