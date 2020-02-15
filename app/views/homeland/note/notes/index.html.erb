@@ -1,15 +1,15 @@
 <% title_tag t('plugin.note') %>
 <div class="row">
   <div class="col-md-9">
-    <div id="notes" class="card">
-      <div class="card-header">
-        <%= t('plugin.note') %>
-        <span class="total pull-right">
-        已有 <%= current_user_notes.count %> 条 Note
-        </span>
-      </div>
-
+    <div id="notes" class="card card-lg">
       <div class="card-body">
+        <div class="card-title">
+          <%= t('plugin.note') %>
+          <span class="counter">
+          共 <%= current_user_notes.count %> 条
+          </span>
+        </div>
+
         <% if @notes.blank? %>
           <div style="text-align:center; padding:60px 0;">你还没有创建过一个文件。</div>
         <% else %>
@@ -18,8 +18,8 @@
               <div class="media-body">
                 <div class="media-heading">
                   <%= link_to note.display_title, note %>
-                  <% if note.publish %>
-                    <span class="label label-text-warning"><i class="fa fa-share-alt"></i> 公开</span>
+                  <% if !note.publish %>
+                    <i class="text-success fa fa-lock"></i>
                   <% end %>
                   <span class="opts pull-right">
                     <a href="<%= edit_note_path(note.id) %>"><i class="fa fa-pencil"></i></a>

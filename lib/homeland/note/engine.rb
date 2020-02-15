@@ -5,14 +5,7 @@ module Homeland::Note
     isolate_namespace Homeland::Note
 
     initializer 'homeland.site.migrate' do |_app|
-      migrate_paths = [File.expand_path('../../../migrate', __dir__)]
-
-      # Execute Migrations on engine load.
-      ActiveRecord::Migrator.migrations_paths += migrate_paths
-      begin
-        ActiveRecord::Tasks::DatabaseTasks.migrate
-      rescue ActiveRecord::NoDatabaseError
-      end
+      Homeland.migrate_plugin(File.expand_path('../../../migrate', __dir__))
     end
 
     initializer 'homeland.note.init' do |app|

@@ -3,33 +3,39 @@
 <div class="row">
   <div class="col-sm-9">
     <div id="notes" class="card">
-      <div class="card-header info clearfix">
+      <div class="card-body">
+        <div class="card-title">
+          <div class="back">
+            <%= link_to icon_tag("arrow-left", label: "返回列表"), notes_path %>
+          </div>
+
+          <div class="actions">
+            <% if owner? @note %>
+            <%= link_to "继续编辑", edit_note_path(@note), title: "编辑", class: "btn btn-default btn-sm" %>
+            <%= link_to "删除", note_path(@note), 'data-confirm' => "确定要删除么？", method: :delete, class: "btn btn-danger btn-sm" %>
+            <% end %>
+
+            <% if !@note.publish %>
+            <i class="fa fa-lock text-success pull-right" title="此内容保密"></i>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="markdown">
+          <%= markdown(@note.body) %>
+        </div>
+
+        <% if @note.publish %>
+        <input type="text" readonly value="<%= note_url(@note) %>" class="form-control">
+        <% end %>
+      </div>
+      <div class="card-footer info clearfix">
         共 <%= @note.word_count %> 个字符
         • <%= user_name_tag(@note.user) if !owner? @note %>
         <%= l @note.created_at, format: :long %>
         • <%= @note.hits %> 次阅读
         • <%= @note.changes_count %> 次修改
-        <% if owner? @note %>
-        <span class="opts pull-right">
-          <%= link_to icon_tag("pencil"), edit_note_path(@note), title: "编辑" %>
-          <%= link_to icon_tag("trash"), note_path(@note), 'data-confirm' => "确定要删除么？", method: :delete %>
-        </span>
-        <% end %>
       </div>
-      <div class="card-body">
-        <% if !@note.publish %>
-        <i class="fa fa-lock text-success pull-right" title="此内容保密"></i>
-        <% end %>
-        <div class="markdown">
-          <%= markdown(@note.body) %>
-        </div>
-      </div>
-      <% if @note.publish %>
-      <div class="card-footer links">
-        <label>页面链接</label>
-        <%= note_url(@note) %>
-      </div>
-      <% end %>
     </div>
   </div>
 

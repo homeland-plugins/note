@@ -8,17 +8,4 @@
     </div>
     <div class="card-footer"><a href="<%= notes_path %>">查看我的 <%= current_user_notes.count %> 条 Note...</a></div>
   </div>
-
-  <% if @recent_notes.present? %>
-  <div class="card">
-    <div class="card-header">我最近创建的 Note</div>
-    <ul class="list-group list-group-flush">
-      <% @recent_notes.each do |note| %>
-        <li class="list-group-item">
-          <%= link_to note.display_title, note %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
 </div>
