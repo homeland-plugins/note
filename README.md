@@ -5,17 +5,7 @@ Homeland::Note Plugin
 
 ## Installation
 
-Add this line to your Homeland's Gemfile:
-
-```ruby
-gem 'homeland-note'
-```
-
-And then execute:
-
-```bash
-$ bundle
-```
+[Download ZIP](https://github.com/homeland-plugins/note/archive/master.zip) and upload to Homeland / Admin / Plugins.
 
 ## License
 
