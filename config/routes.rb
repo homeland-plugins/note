@@ -4,4 +4,8 @@ Homeland::Note::Engine.routes.draw do
       post :preview
     end
   end
+
+  namespace :admin do
+    resources :notes
+  end
 end

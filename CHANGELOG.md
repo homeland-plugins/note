@@ -1,3 +1,8 @@
+1.1.0
+-------
+
+- Add admin to manage public notes.
+
 0.2.0
 -------
 
