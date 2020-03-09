@@ -11,6 +11,10 @@ module Homeland::Note
 
     def show
       @note = ::Note.find(params[:id])
+      if @note.user.deleted? || @note.user.blocked?
+        raise ActiveRecord::RecordNotFound.new
+      end
+
       authorize! :read, @note
       @note.hits.incr(1)
     end
