@@ -1,6 +1,6 @@
 module Homeland::Note::Admin
   class NotesController < ::Admin::ApplicationController
-    layout '/layouts/admin'
+    layout "layouts/admin"
 
     def index
       @notes = Note.published.includes(:user).order("id desc").page(params[:page])
