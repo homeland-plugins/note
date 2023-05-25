@@ -16,12 +16,14 @@
           <% @notes.each do |note| %>
             <div class="media">
               <div class="media-body">
-                <div class="media-heading">
-                  <%= link_to note.display_title, note %>
-                  <% if !note.publish %>
-                    <i class="text-success fa fa-lock"></i>
-                  <% end %>
-                  <span class="opts pull-right">
+                <div class="media-heading flex items-center justify-between">
+                  <div class="flex items-center space-x-2">
+                    <%= link_to note.display_title, note %>
+                    <% if !note.publish %>
+                      <i class="text-success fa fa-lock"></i>
+                    <% end %>
+                  </div>
+                  <span class="opts">
                     <a href="<%= edit_note_path(note.id) %>"><i class="fa fa-pencil"></i></a>
                   </span>
                 </div>

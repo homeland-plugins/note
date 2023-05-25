@@ -4,24 +4,22 @@
   <div class="col-sm-9">
     <div id="notes" class="card">
       <div class="card-body">
-        <div class="card-title jcsb">
+        <div class="card-title justify-between">
           <div class="back">
             <%= link_to icon_tag("arrow-left", label: "返回列表"), notes_path %>
           </div>
 
-          <div class="actions flex aic">
-           <% if !@note.publish %>
-            <i class="fa fa-lock text-success mr-2" title="此内容保密"></i>
+          <div class="actions flex items-center">
+            <% if !@note.publish %>
+              <i class="fa fa-lock text-success mr-2" title="此内容保密"></i>
             <% end %>
 
-            <div class="flex aic">
-            <% if owner? @note %>
-            <%= link_to "继续编辑", edit_note_path(@note), title: "编辑", class: "btn btn-primary btn-sm mr-2" %>
-            <%= link_to "删除", note_path(@note), 'data-confirm' => "确定要删除么？", method: :delete, class: "btn btn-danger btn-sm" %>
-            <% end %>
+            <div class="flex items-center space-x-4">
+              <% if owner? @note %>
+                <%= link_to "继续编辑", edit_note_path(@note), title: "编辑", class: "btn btn-primary btn-sm mr-2" %>
+                <%= link_to "删除", note_path(@note), 'data-confirm' => "确定要删除么？", method: :delete, class: "btn btn-danger btn-sm" %>
+              <% end %>
             </div>
-
-           
           </div>
         </div>
 
@@ -30,10 +28,10 @@
         </div>
 
         <% if @note.publish %>
-        <input type="text" readonly value="<%= note_url(@note) %>" class="form-control">
+          <input type="text" readonly value="<%= note_url(@note) %>" class="form-control">
         <% end %>
       </div>
-      <div class="card-footer info clearfix">
+      <div class="card-footer info items-center">
         共 <%= @note.word_count %> 个字符
         • <%= user_name_tag(@note.user) if !owner? @note %>
         <%= l @note.created_at, format: :long %>
