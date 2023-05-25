@@ -24,13 +24,7 @@
   </div>
 
   <div class="form-actions">
-    <div class="row">
-      <div class="col-sm-3">
-        <%= f.submit "保存", class: "btn btn-primary btn-block", 'data-disable-with' => "保存中..." %>
-      </div>
-      <div class="col-sm-2">
-        <%= link_to "取消", notes_path, class: "btn btn-default btn-block" %>
-      </div>
-    </div>
+      <%= f.submit "保存", class: "btn btn-primary", 'data-disable-with' => "保存中..." %>
+      <%= link_to "取消", notes_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
