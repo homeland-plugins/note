@@ -1,0 +1,10 @@
+en:
+  plugin:
+    note: Note
+  activerecord:
+    models:
+      note: Note
+    attributes:
+      note:
+        title: Title
+        body: Content
