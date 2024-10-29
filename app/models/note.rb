@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Note < ApplicationRecord
-  second_level_cache
-
   belongs_to :user
 
   counter :hits, default: 0
