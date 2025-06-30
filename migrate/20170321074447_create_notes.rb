@@ -1,7 +1,5 @@
 class CreateNotes < ActiveRecord::Migration[5.0]
   def up
-    return if ActiveRecord::Base.connection.table_exists? :notes
-
     create_table 'notes' do |t|
       t.string   'title',                         null: false
       t.text     'body',                          null: false
